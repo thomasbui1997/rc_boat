@@ -1,0 +1,11 @@
+data/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+.web_server.pid
+.web_server.port
+.web_server.log
+.pytest_cache/
+AGENTS.md
+CLAUDE.md

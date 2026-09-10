@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Boat Telemetry</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="map"></div>
+<aside id="status-panel">
+  <h1>Boat Telemetry</h1>
+
+  <div class="row"><span class="label">Connection</span><span id="connection-status" class="value">--</span></div>
+  <div class="row"><span class="label">Status</span><span id="stale-indicator" class="value">--</span></div>
+
+  <h2>Position</h2>
+  <div class="row"><span class="label">Lat</span><span id="value-lat" class="value">--</span></div>
+  <div class="row"><span class="label">Lon</span><span id="value-lon" class="value">--</span></div>
+  <div class="row"><span class="label">Accuracy</span><span id="value-accuracy" class="value">--</span></div>
+  <div class="row"><span class="label">Satellites</span><span id="value-satellites" class="value">--</span></div>
+  <div class="row"><span class="label">Fix</span><span id="value-fix-quality" class="value">--</span></div>
+  <div class="row"><span class="label">Link</span><span id="value-link-quality" class="value">--</span></div>
+  <div class="row"><span class="label">Last update</span><span id="value-age" class="value">--</span></div>
+
+  <h2>Diagnostics</h2>
+  <div class="row"><span class="label">Rejected</span><span id="count-rejected" class="value">0</span></div>
+  <div class="row"><span class="label">Duplicate</span><span id="count-duplicate" class="value">0</span></div>
+  <div class="row"><span class="label">Out of order</span><span id="count-out-of-order" class="value">0</span></div>
+  <div class="row"><span class="label">Delayed</span><span id="count-delayed" class="value">0</span></div>
+</aside>
+
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

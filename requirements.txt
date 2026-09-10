@@ -1,0 +1,5 @@
+pynmea2
+pyserial
+websockets
+pytest
+pytest-asyncio
