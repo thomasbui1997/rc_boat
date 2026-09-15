@@ -1,94 +1,16 @@
-# Boat telemetry prototype
+# Tactical Remote Controlled Fish Bait Boat
 
-## Project status
+## Ultimate Goal
 
-Documentation reviewed 2026-09-01. The boat chassis is functional, and the
-candidate telemetry hardware is purchased with an initial GPS bench-test
-result recorded (see [DECISIONS.md](DECISIONS.md)) — but the onboard
-computer, storage, and router remain untested. The message schema and a
-first working implementation (boat-side sender, shore-side web application)
-now exist and pass their automated tests against simulated GPS data; see
-"Running the code" below. Neither has yet been run against the real GPS/Pi
-pairing or on the water. See [ROADMAP.md](ROADMAP.md) for the active work.
+The point of this project is to turn a remote controlled boat into a command and control node for remote sensing, and, eventually, to demonstrate target classification and navigation using remotely deployed AI. To accomplish this, I chose to work on a fishing bait boat.
 
-## Current objective
+A fishing bait boat is a remote controlled boat, designed to transport a small payload of bait to a desired spot in the water. The operator, usually a fishermen, can then remotely dump the bait from shore to attract fish to a desired location.
 
-Build a manually operated boat that reports its GPS location to a shore
-application over a local Wi-Fi network. The boat records telemetry locally;
-the shore application shows live location, trail, link health, and stale data.
+The vehicle's inherent stability and ability to haul weight, was why I chose it as a testbed for my experiment. The boat would need to carry at least a waterproof enclosure, containing a chip, a battery, and various additional components.
 
-No future capability is committed until this objective has been tested and
-reviewed.
+Milestones:
 
-## System overview
-
-```text
-Stock RC transmitter ──> stock receiver and motors
-
-GPS + removable onboard computer ──> local records
-             │
-             └── Wi-Fi / portable router ──> shore application
-```
-
-The onboard unit is independently powered and must not modify stock propulsion
-wiring or the RC receiver. It sends data only; the shore application does not
-control the boat.
-
-## Safety rules
-
-- Retain manual RC control and a documented recovery method for every test.
-- Keep the powered boat away from people, wildlife, fishing lines, docks, and
-  other vessels.
-- Test only at authorized, controlled, recoverable sites.
-- Stop and inspect after water ingress, control faults, unusual battery
-  behavior, or worsening conditions.
-- Treat stale or missing telemetry as unavailable data, never as current boat
-  location.
-
-See [ROADMAP.md](ROADMAP.md) for the active work, [MVP-DESIGN.md](MVP-DESIGN.md)
-for the current system boundary, [SCHEMA.md](SCHEMA.md) for the telemetry
-message format, [DECISIONS.md](DECISIONS.md) for selected architecture
-decisions, [CONCERNS.md](CONCERNS.md) for open concerns with the shore
-application, and [COSTS.md](COSTS.md) for the working budget.
-
-## Running the code
-
-Set up once:
-
-```
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
-
-Run the automated tests:
-
-```
-python -m pytest
-node --test web/tests
-```
-
-Try the full pipeline against simulated GPS data (no hardware needed) — in
-one terminal:
-
-```
-python -m src.telemetry_sender --source simulate
-```
-
-and in another:
-
-```
-python -m http.server 8000 --directory web
-```
-
-then open `http://localhost:8000/?ws=ws://localhost:8765` in a browser.
-
-To run against the real GPS receiver instead (on `boat-pi`, over SSH):
-
-```
-python -m src.telemetry_sender --source gps
-```
-
-The Pi user must be in the `dialout` group to read `/dev/ttyACM0`. On
-Raspberry Pi OS Bookworm, `pip install` at the system level is blocked
-(PEP 668) — use the venv setup above there too.
+1. **Telemetry (current)** — boat reports location and health, no commands.
+2. **On-water validation** — test telemetry for real.
+3. **Shore-to-boat commands** — supervised, RC override always available.
+4. **Autonomous navigation** — boat drives itself, still overridable.
