@@ -1,7 +1,6 @@
 data/
 __pycache__/
 *.pyc
-.venv/
 .DS_Store
 .web_server.pid
 .web_server.port
